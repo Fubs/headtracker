@@ -1,6 +1,5 @@
 # headtracker
 
-to get calibration values:
-look at center of screen and press c,
-then try looking towards left and right sides of screen. if moving head left moves the dot right, press n, then re-center dot
-do the same for up and down, press m to flip if needed and re-center.
+nvim plugin to move the cursor with a vive tracker attached to your head
+
+https://user-images.githubusercontent.com/17634481/163863579-2deae7ba-4780-461d-82c8-42c4c76eff7c.mp4
