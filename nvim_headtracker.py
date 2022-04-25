@@ -5,7 +5,6 @@ import pynvim
 class HeadTracker(object):
     def __init__(self, vim):
         self.fifo1 = "/tmp/nvim_tracker_f1"
-        self.fifo2 = "/tmp/nvim_tracker_f2"
         self.vim = vim
         self.buf = self.vim.current.buffer
         self.tracking = False
@@ -42,26 +41,3 @@ class HeadTracker(object):
             jumpstr = '^' + 'k'*(cursor_line-top_visible) + 'j'*self.head_y + 'l'*self.head_x
             self.vim.command('normal! ' + jumpstr)
             self.vim.command('redraw!')
-'''
-            if self.next_cmd is not None:
-                if self.next_cmd == 'FlipAxes':
-                    with open(self.fifo2, 'w') as f:
-                        f.write('fxy\n')
-                        f.close()
-            else:
-                with open(self.fifo2, 'w') as f:
-                    f.write('0\n')
-                    f.close()
-
-
-
-    @pynvim.command('FlipAxes', range='', nargs='*', sync=True)
-    def flip_axes_cmd(self, args, range):
-        self.next_cmd = 'FlipAxes'
-        #self.vim.async_call(self.flip_axes)
-
-    def flip_axes(self, *args):
-        with open(self.fifo2, 'w') as f:
-            f.write('fxy\n')
-            f.close()
-'''
