@@ -2,4 +2,5 @@
 
 nvim plugin to move the cursor with a vive tracker attached to your head
 
-https://user-images.githubusercontent.com/17634481/163863579-2deae7ba-4780-461d-82c8-42c4c76eff7c.mp4
+
+![out](https://user-images.githubusercontent.com/17634481/165172518-e888428e-3566-4839-9132-cf5698a5a3b3.gif)
