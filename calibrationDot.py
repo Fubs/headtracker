@@ -23,15 +23,15 @@ if __name__ == "__main__":
 
     pygame.init()
 
-    t = 0
-    p0 = 0
-    p1 = 0 
-    p2 = 0
+    #t = 0
+    #p0 = 0
+    #p1 = 0 
+    #p2 = 0
     r0 = 0
     r1 = 0
-    r2 = 0
-    r3 = 0
-    dot_y, dot_x = 0, 0
+    #r2 = 0
+    #r3 = 0
+    screen_y, screen_x = 0, 0
     W, H = 2560, 1440
 
     pygame.display.set_caption("tracker")
@@ -40,7 +40,6 @@ if __name__ == "__main__":
     text_surface = font.render('', False, (0, 0, 0))
 
     actx = pysurvive.SimpleContext(sys.argv)
-
 
     running = True
     while running:
@@ -76,24 +75,15 @@ if __name__ == "__main__":
             #WM0 is the updated.Name() for vive tracker, T20 is HMD
             #when tracker is connected with usb, it may be T21 instead of WM0
             if str(updated.Name(), 'utf-8') == "WM0" or str(updated.Name(), 'utf-8') == "T21":
-                #p0 = poseData.Pos[0]
-                #p1 = poseData.Pos[1]
-                #p2 = poseData.Pos[2]
                 r0 = poseData.Rot[0]
                 r1 = poseData.Rot[1]
-                #r2 = poseData.Rot[2]
-                #r3 = poseData.Rot[3]
-                y = (r0 + c_y)*s_y
-                x = (r1 + c_x)*s_x
-                dot_y = (H * y)
-                dot_x = (W * (1-x))
-                print(dot_x, dot_y)
-            else:
-                continue
+                screen_y = H * (r0 + c_y)*s_y 
+                screen_x = W * (1- (r1 + c_x)*s_x)
+                print(screen_x, screen_y)
 
         screen.fill((255, 255, 255))
 
-        pygame.draw.circle(screen, (0, 0, 255), (dot_x,dot_y), 50)
+        pygame.draw.circle(screen, (0, 0, 255), (screen_x,screen_y), 50)
 
         text_surface = font.render('cx,cy,sx,sy = ' 
                 + str(round(float(c_x),2)) + ',' 
@@ -101,8 +91,8 @@ if __name__ == "__main__":
                 + str(round(float(s_x),2)) + ',' 
                 + str(round(float(s_y),2)), False, (0, 0, 0))
         text_surface2 = font.render('x,y = ' 
-                + str(round(float(dot_x),2)) + ',' 
-                + str(round(float(dot_y),2)), False, (0, 0, 0))
+                + str(round(float(screen_x),2)) + ',' 
+                + str(round(float(screen_y),2)), False, (0, 0, 0))
 
         screen.blit(text_surface, (100,100))
         screen.blit(text_surface2, (100,200))
