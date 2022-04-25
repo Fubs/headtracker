@@ -16,8 +16,8 @@ import pygame
 
 if __name__ == "__main__":
 
-    c_x = 0.01 #center offset x
-    c_y = -0.22 #center offset y
+    c_x = -0.04 #center offset x
+    c_y = 0.23 #center offset y
     s_x = 2.4 #scale x
     s_y = 2.4 #scale y
 
@@ -75,14 +75,14 @@ if __name__ == "__main__":
             poseTimestamp = poseObj[1]
             #WM0 is the updated.Name() for vive tracker, T20 is HMD
             #when tracker is connected with usb, it may be T21 instead of WM0
-            if str(updated.Name(), 'utf-8') == "WM0":
-                p0 = poseData.Pos[0]
-                p1 = poseData.Pos[1]
-                p2 = poseData.Pos[2]
+            if str(updated.Name(), 'utf-8') == "WM0" or str(updated.Name(), 'utf-8') == "T21":
+                #p0 = poseData.Pos[0]
+                #p1 = poseData.Pos[1]
+                #p2 = poseData.Pos[2]
                 r0 = poseData.Rot[0]
                 r1 = poseData.Rot[1]
-                r2 = poseData.Rot[2]
-                r3 = poseData.Rot[3]
+                #r2 = poseData.Rot[2]
+                #r3 = poseData.Rot[3]
                 y = (r0 + c_y)*s_y
                 x = (r1 + c_x)*s_x
                 dot_y = (H * y)

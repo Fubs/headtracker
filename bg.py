@@ -3,27 +3,30 @@
 #when starting this file, look at center of screen and keep head still
 #to flip the rotation axes to the correct orientation
 
+import os, sys, threading
 import pysurvive
-import os, sys
 
-if __name__ == "__main__":
+def main():
     c_x = 0.01 #center offset x
     c_y = -0.22 #center offset y
     s_x = 2.4 #scale x
     s_y = 2.4 #scale y
 
-    fifofile = "/tmp/pytracker_fifo"
-    if not os.path.exists(fifofile):
-        os.mkfifo(fifofile)
+    f1 = "/tmp/nvim_tracker_f1"
+    f2 = "/tmp/nvim_tracker_f2"
+    if not os.path.exists(f1):
+        os.mkfifo(f1)
+    if not os.path.exists(f2):
+        os.mkfifo(f2)
 
     t = 0
-    p0 = 0
-    p1 = 0 
-    p2 = 0
+    #p0 = 0
+    #p1 = 0 
+    #p2 = 0
     r0 = 0
     r1 = 0
-    r2 = 0
-    r3 = 0
+    #r2 = 0
+    #r3 = 0
     dot_y, dot_x = 0, 0
     W, H = 2560, 1440
 
@@ -39,13 +42,13 @@ if __name__ == "__main__":
     poseObj = updated.Pose()
     poseData = poseObj[0]
     poseTimestamp = poseObj[1]
-    p0 = poseData.Pos[0]
-    p1 = poseData.Pos[1]
-    p2 = poseData.Pos[2]
+    #p0 = poseData.Pos[0]
+    #p1 = poseData.Pos[1]
+    #p2 = poseData.Pos[2]
     r0 = poseData.Rot[0]
     r1 = poseData.Rot[1]
-    r2 = poseData.Rot[2]
-    r3 = poseData.Rot[3]
+    #r2 = poseData.Rot[2]
+    #r3 = poseData.Rot[3]
     y = (r0 + c_y)*s_y
     x = (r1 + c_x)*s_x
     dot_y = (H * y)
@@ -64,13 +67,13 @@ if __name__ == "__main__":
                 poseData = poseObj[0]
                 poseTimestamp = poseObj[1]
                 if str(updated.Name(), 'utf-8') == "WM0":
-                    p0 = poseData.Pos[0]
-                    p1 = poseData.Pos[1]
-                    p2 = poseData.Pos[2]
+                    #p0 = poseData.Pos[0]
+                    #p1 = poseData.Pos[1]
+                    #p2 = poseData.Pos[2]
                     r0 = poseData.Rot[0]
                     r1 = poseData.Rot[1]
-                    r2 = poseData.Rot[2]
-                    r3 = poseData.Rot[3]
+                    #r2 = poseData.Rot[2]
+                    #r3 = poseData.Rot[3]
                     y = (r0 + c_y)*s_y
                     x = (r1 + c_x)*s_x
                     dot_y = (H * y)
@@ -79,16 +82,22 @@ if __name__ == "__main__":
                 else:
                     continue
 
-                with open(fifofile, 'w') as fifo:
-                    fifo.write(str(dot_x) + ',' + str(dot_y) + '\n')
-                    fifo.close()
+                #print("sending data")
+                with open(f1, 'w') as f:
+                    f.write(str(dot_x) + ',' + str(dot_y) + '\n')
+                    f.close()
+
     except KeyboardInterrupt:
         print("Stopping")
         running = False
-        if os.path.exists(fifofile):
-            os.remove(fifofile)
+        if os.path.exists(f1):
+            os.remove(f1)
+        if os.path.exists(f2):
+            os.remove(f2)
         quit()
 
+if __name__ == "__main__":
+    main()
 
 
 
