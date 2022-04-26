@@ -1,6 +1,6 @@
 #run this program in background to provide tracker data to the nvim plugin
 
-import os, sys, threading
+import os, sys
 import pysurvive
 
 def main():
@@ -63,7 +63,4 @@ if __name__ == "__main__":
     finally:
         if os.path.exists(f1):
             os.remove(f1)
-
-
-
-
+            
