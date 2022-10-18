@@ -1,13 +1,13 @@
 #run this program in background to provide tracker data to the nvim plugin
 
-import os, sys, threading
+import os, sys
 import pysurvive
 
 def main():
-    c_x = 0.01 #center offset x
-    c_y = 0.22 #center offset y
-    s_x = 2.4 #scale x
-    s_y = 2.4 #scale y
+    c_x = 0.495 #center offset x
+    c_y = 0.07 #center offset y
+    s_x = 2.45 #scale x
+    s_y = 2.45 #scale y
 
     f1 = "/tmp/nvim_tracker_f1"
     if not os.path.exists(f1):
